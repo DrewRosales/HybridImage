@@ -12,6 +12,24 @@ def cross_correlation_2d(img, kernel):
     OUTPUT:
         Returns an image with the same initial dimensions as the input
     '''
+
+    u,v = kernel.shape
+    cross_img = np.zeros(img.shape)
+
+    u_pad = (u-1)/2
+    v_pad = (v-1)/2
+
+    #RGB
+    if len(img.shape) > 2:
+        x,y, colors = img.shape
+
+        pad_img = np.pad(img, pad_width=(u_pad, upad), (v_pad, v_pad), (0,0), mode='constant', constant_values = 0)
+
+        cross_img = 0
+        for i in range(x):
+            for j in range(y):
+                for color in range(colors):
+                    cross_img = cross_img +  
     return cross_img
 
 def conv_2d(img, kernel):
