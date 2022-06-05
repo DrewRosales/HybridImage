@@ -62,6 +62,15 @@ def gauss_blur_2d(height, width, sigma):
         Returns a kernel to create the resulting blur given the appropriate parameters
     '''
 
+    gauss = np.zeros((width, height))
+
+    x = np.linspace(-np.floor(width/2), np.floor(width/2), width)
+    y = np.linspace(-np.floor(height/2), np.floor(height/2), height)
+    
+    for i in range(0, width):
+        for j in range (0, height):
+            gauss[i,j] = 1/(2*np.pi*sigma**2) * np.exp(- (x[i]**2 + y[j]**2)/(2* sigma**2))
+
     return gauss
 
 def lowpass(img, size, sigma):
