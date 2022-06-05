@@ -3,6 +3,8 @@ import sys
 import numpy as np
 import os
 
+
+#referenced Cornell's CV course (CS5670)
 def cross_correlation_2d(img, kernel):
     '''
     INPUT:
@@ -23,13 +25,22 @@ def cross_correlation_2d(img, kernel):
     if len(img.shape) > 2:
         x,y, colors = img.shape
 
-        pad_img = np.pad(img, pad_width=(u_pad, upad), (v_pad, v_pad), (0,0), mode='constant', constant_values = 0)
+        pad_img = np.pad(img, pad_width=((u_pad, u_pad), (v_pad, v_pad), (0,0)), mode='constant', constant_values = 0)
 
         cross_img = 0
         for i in range(x):
             for j in range(y):
                 for color in range(colors):
-                    cross_img = cross_img +  
+                    cross_img = cross_img +  kernel* pad_img[i:i+u, j:j+v, color]
+
+    #grayscale
+    else:
+        pad_img = np.pad(img, pad_width=((u_pad, u_pad), (v_pad, v_pad)), mode='constant', constant_values = 0)
+
+        cross_img = 0
+        for i in range(x):
+            for j in range(y):
+                    cross_img = cross_img +  kernel* pad_img[i:i+u, j:j+v]
     return cross_img
 
 def conv_2d(img, kernel):
@@ -73,3 +84,4 @@ def highpass(img, size, sigma):
     return img - lowpass(img, size, sigma)
 
 def create_img(img1, img2, size1, size2, sigma1, sigma2):
+    print("placeholder")
