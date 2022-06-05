@@ -118,5 +118,21 @@ def highpass(img, size, sigma):
     '''
     return img - lowpass(img, size, sigma)
 
-def create_img(img1, img2, size1, size2, sigma1, sigma2, orient1, orient2):
-    print("placeholder")
+def create_img(img1, img2, size1, size2, sigma1, sigma2, orient1, orient2, ratio):
+    
+    #set the input Strings to be lowercase
+    orient1 = orient1.lower()
+    orient2 = orient2.lower()
+
+    if orient1 == "high":
+        img1 = highpass(img1, size1, sigma1)
+        img2 = lowpass(img2, size2, sigma2)
+    else:
+        img1 = lowpass(img1, size1, sigma1)
+        img2 = highpass(img2, size2, sigma2)
+
+    img1 *= ratio
+    img2 *= (1-ratio)
+
+    hybrid = img1 + img2
+    return hybrid
