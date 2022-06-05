@@ -75,7 +75,7 @@ def conv_2d(img, kernel):
 
         for i in range(x):
             for j in range(y):
-                    conv_img[i, j] = np.sum(kernel* pad_img[i:i+u, j:j+v])
+                    conv_img[i, j] = np.sum(kernel* pad_img[i:u-i, j:v-j])
     
     return conv_img
 
